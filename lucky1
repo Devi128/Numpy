@@ -1,0 +1,51 @@
+𝐑𝐄𝐀𝐂𝐓 𝐀𝐏𝐏
+import React, { useState } from "react";
+
+function App() {
+  const questions = [
+    {
+      question: "Which language is used for React?",
+      options: ["Python", "JavaScript", "C++", "Java"],
+      answer: "JavaScript"
+    },
+    {
+      question: "What command starts a React app?",
+      options: ["npm install", "npm start", "npm run", "node app"],
+      answer: "npm start"
+    },
+    {
+      question: "Who developed React?",
+      options: ["Google", "Microsoft", "Facebook", "Amazon"],
+      answer: "Facebook"
+    }
+  ];
+
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+
+  const handleAnswer = (option) => {
+    if (option === questions[current].answer) setScore(score + 1);
+    const next = current + 1;
+    next < questions.length ? setCurrent(next) : setShowScore(true);
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "sans-serif" }}>
+      {showScore ? (
+        <h2>Your Score: {score} / {questions.length}</h2>
+      ) : (
+        <>
+          <h2>{questions[current].question}</h2>
+          {questions[current].options.map((opt, i) => (
+            <button key={i} onClick={() => handleAnswer(opt)} style={{ display: "block", margin: "10px auto" }}>
+              {opt}
+            </button>
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
