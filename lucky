@@ -1,258 +1,75 @@
-Weka GUI Chooser. Select Explorer. The Weka Explorer will then launch.
+Here’s a minimized version of your React app that keeps the same functionality, props, state, and styles, but with cleaner, shorter code:
 
-Understand the features of WEKA toolkit such as Explorer, Knowledge Flow interface, Experimenter, command-line interface.
 
-The Weka GUI Chooser (class weka.gui.GUIChooser) provides a starting pointfor launching Weka‗s main GUI applications and supporting tools. If one prefersa MDI (―multiple document interface‖) appearance, then this is provided by an alternative launcher called ―Main‖ (class weka.gui.Main).
-The GUI Chooser consists of four buttons—one for each of the four major Weka applications— and four menus.
+---
 
+App.js
 
+import React from "react";
+import Welcome from "./Welcome";
 
+export default function App() {
+  return (
+    <div style={{ fontFamily: "system-ui", padding: 20 }}>
+      <h2>React Props and State Example</h2>
+      <Welcome name="Alice" />
+      <Welcome name="Bob" />
+    </div>
+  );
+}
 
+Welcome.js
 
+import React, { useState } from "react";
 
+export default function Welcome({ name }) {
+  const [count, setCount] = useState(0);
+  return (
+    <div style={{ border: "1px solid #ccc", padding: 10, margin: "10px 0", borderRadius: 8 }}>
+      <h3>Hello, {name}</h3>
+      <p>You have greeted {count} times.</p>
+      <button onClick={() => setCount(count + 1)}>Say Hello</button>
+    </div>
+  );
+}
 
+index.js
 
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./styles.css";
 
+createRoot(document.getElementById("root")).render(<App />);
 
+index.html
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Props & State</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
 
 
-The buttons can be used to start the following applications:
-Explorer- An environment for exploring data with WEKA
-Click on ―explorer‖ button to bring up the explorer window.
-Make sure the ―preprocess‖ tab is highlighted.
-Open a new file by clicking on ―Open New file‖ and choosing a file with ―.arff‖ extension from the ―Data‖ directory.
-Attributes appear in the window below.
-Click on the attributes to see the visualization on the right.
-Click ―visualize all‖ to see them all
-Experimenter- An environment for performing experiments and conducting statistical tests between learning schemes.
-Experimenter is for comparing results.
-Under the ―set up‖ tab click ―New‖.
-Click on ―Add New‖ under ―Data‖ frame. Choose a couple of arff format files from
-―Data‖ directory one at a time.
-Click on ―Add New‖ under ―Algorithm‖ frame. Choose several algorithms, one at a time by clicking ―OK‖ in the window and ―Add New‖.
-Under the ―Run‖ tab click ―Start‖.
+---
 
-Wait for WEKA to finish.
-Under ―Analyses‖ tab click on ―Experiment‖ to see results.
-Knowledge Flow- This environment supports essentially the same functions as the Explorer but with a drag-and-drop interface. One advantage is that it supports incremental learning.
-Simple CLI - Provides a simple command-line interface that allows direct execution of WEKA commands for operating systems that do not provide their own command line interface.
-Navigate the options available in the WEKA (ex. Select attributes panel, Preprocess panel, classify panel, Cluster panel, Associate panel and Visualize panel)
+✅ Changes made:
 
-When the Explorer is first started only the first tab is active; the others are greyed out. This is because it is necessary to open (and potentially pre-process) a data set before starting to explore the data.
-The tabs are as follows:
-Preprocess. Choose and modify the data being acted on.
-Classify. Train and test learning schemes that classify or perform regression.
-Cluster. Learn clusters for the data.
-Associate. Learn association rules for the data.
-Select attributes. Select the most relevant attributes in the data.
-Visualize. View an interactive 2D plot of the data.
-Once the tabs are active, clicking on them flicks between different screens, on which the respective actions can be performed. The bottom area of the window (including the status box, the log button, and the Weka bird) stays visible regardless of which section you are in.
+Removed unnecessary comments and blank lines.
 
-Preprocessing
+Combined simple imports and default exports.
 
+Removed <StrictMode> (optional for small examples).
 
+Shortened inline styles slightly while keeping the same appearance.
 
 
+If you want, I can make it even more compact so the whole app fits in just two files for super quick testing.
 
-
-
-
-
-
-
-
-
-
-
-
-Loading Data:
-The first four buttons at the top of the preprocess section enable you to load data into WEKA:
-
-Open file.... Brings up a dialog box allowing you to browse for the data file on the local filesystem.
-Open URL	Asks for a Uniform Resource Locator address for where the data is stored.
-Open DB	Reads data from a database. (Note that to make this work you might have to edit
-the file in weka/experiment/DatabaseUtils.props.)
-Generate	Enables you to generate artificial data from a variety of Data Generators.
-Using the Open file	button you can read files in a variety of formats:
-WEKA‗s ARFF format, CSV format, C4.5 format, or serialized Instances format. ARFF files typically have a .arff extension, CSV files a .csv extension,C4.5 files a .data and .names extension, and serialized Instances objects a .bsi extension.
-Classification:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Selecting a Classifier
-At the top of the classify section is the Classifier box. This box has a text field that gives the name of the currently selected classifier, and its options. Click in gon the text box with the left mouse button brings up a Generic Object Editor dialog box, just the same as for filters, that you can use to configure the options of the current classifier. With a right click (or Alt+Shift+left click) you can once again copy the setup string to the clipboard or display the properties in a Generic Object Editor dialog box. The Choose button allows you to choose on4eof the classifiers that are available in WEKA.
-Test Options
-
-The result of applying the chosen classifier will be tested according to the options that are set by clicking in the Test options box. There are four test modes:
-Use training set: The classifier is evaluated on how well it predicts the class of the instances it was trained on.
-Supplied test set: The classifier is evaluated on how well it predicts the class of a set of instances loaded from a file. Clicking the Set... button brings up a dialog allowing you to choose the file to test on.
-Cross-validation: The classifier is evaluated by cross-validation, using the number of folds that are entered in the Folds text field.
-Percentage split: The classifier is evaluated on how well it predicts a certain percentage of thedata which is held out for testing. The amount of data held out depends on the value entered in the % field.
-Clustering:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Cluster Modes:
-The Cluster mode box is used to choose what to cluster and how to evaluate the results. The first three options are the same as for classification: Use training set, Supplied test set and Percentage split.
-Associating:
-
-
-
-Searching and Evaluating
-Attribute selection involves searching through all possible combinations of attributes in the datato find which subset of attributes works best for prediction. To do this, two objects must be set up: an attribute evaluator and a search method. The evaluator determines what method is used to assign a worth to each subset of attributes. The search method determines what style of search is performed.
-
-6. Visualizing:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-WEKA‗s visualization section allows you to visualize 2D plots of the current relation.
-Study the arff file format
-An ARFF (Attribute-Relation File Format) file is an ASCII text file that describes a list of instances sharing a set of attributes. ARFF files were developed by the Machine Learning Project at the Department of Computer Science of The University of Waikato for use with the Weka machine learning software.
-
-Overview
-ARFF files have two distinct sections. The first section is the Header information, which is followed the Data information.
-
-The Header of the ARFF file contains the name of the relation, a list of the attributes (the columns in the data), and their types. An example header on the standard IRIS dataset looks like this:
-
-% 1. Title: Iris Plants Database
-%
-% 2. Sources:
-%	(a) Creator: R.A. Fisher
-%	(b) Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)
-%	(c) Date: July, 1988
-%
-
-@RELATION iris
-
-@ATTRIBUTE sepallength NUMERIC @ATTRIBUTE sepalwidth NUMERIC @ATTRIBUTE petallength NUMERIC @ATTRIBUTE petalwidth NUMERIC
-@ATTRIBUTE class	{Iris-setosa,Iris-versicolor,Iris-virginica} The Data of the ARFF file looks like the following:
-@DATA
-5.1,3.5,1.4,0.2,Iris-setosa
-4.9,3.0,1.4,0.2,Iris-setosa
-4.7,3.2,1.3,0.2,Iris-setosa
-4.6,3.1,1.5,0.2,Iris-setosa
-5.0,3.6,1.4,0.2,Iris-setosa
-5.4,3.9,1.7,0.4,Iris-setosa
-4.6,3.4,1.4,0.3,Iris-setosa
-5.0,3.4,1.5,0.2,Iris-setosa
-4.4,2.9,1.4,0.2,Iris-setosa
-4.9,3.1,1.5,0.1,Iris-setosa
-Lines that begin with a % are comments.
-The @RELATION, @ATTRIBUTE and @DATA declarations are case insensitive.
-
-Explore the available data sets in WEKA
-There are 23 different datasets are available in weka (C:\Program Files\Weka-3-6\) by default for testing purpose. All the datasets are available in. arff format. Those datasets are listed below.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Load a data set (ex. Weather dataset, Iris dataset, etc.) Procedure:
-Open the weka tool and select the explorer option.
-New window will be opened which consists of different options (Preprocess, Association etc.)
-In the preprocess, click the ―open file‖ option.
-Go to C:\Program Files\Weka-3-6\data for finding different existing. arff datasets.
-Click on any dataset for loading the data then the data will be displayed as shown below.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Load each dataset and observe the following:
-
-Here we have taken IRIS.arff dataset as sample for observing all the below things.
-
-List the attribute names and they types
-There are 5 attributes & its data type present in the above loaded dataset (IRIS.arff) sepallength – Numeric
-sepalwidth – Numeric petallength – Numeric petallength – Numeric Class – Nominal
-Number of records in each dataset
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Determine the number of records for each class.
-There is one class attribute (150 records) which consists of 3 labels. They are shown below
-Iris-setosa - 50 records
-Iris-versicolor – 50 records
-Iris-virginica – 50 records
+Do you want me to do that?
