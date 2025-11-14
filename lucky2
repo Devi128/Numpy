@@ -1,0 +1,25 @@
+𝐄𝐱𝐩𝐫𝐞𝐬𝐬 𝐣𝐬 𝐭𝐞𝐦𝐩𝐥𝐚𝐭𝐢𝐧𝐠 𝐝𝐚𝐭𝐚(2𝐚)
+𝕊𝔼ℝ𝕍𝔼ℝ.𝕁𝕊
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+  res.render('index', { title: 'Home Page', message: 'Welcome to EJS Example!' });
+});
+
+app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+
+𝕧𝕚𝕖𝕨𝕤/𝕚𝕕𝕖𝕩.𝕖𝕛𝕤
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <h1><%= message %></h1>
+  <p>This page is rendered using the <b>EJS</b> templating engine.</p>
+</body>
+</html>
