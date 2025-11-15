@@ -1,75 +1,93 @@
-Here’s a minimized version of your React app that keeps the same functionality, props, state, and styles, but with cleaner, shorter code:
+import 'package:flutter/material.dart';
 
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Responsive Design App',
+      home: HomeScreen(),
+    ));
 
----
-
-App.js
-
-import React from "react";
-import Welcome from "./Welcome";
-
-export default function App() {
-  return (
-    <div style={{ fontFamily: "system-ui", padding: 20 }}>
-      <h2>React Props and State Example</h2>
-      <Welcome name="Alice" />
-      <Welcome name="Bob" />
-    </div>
-  );
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-Welcome.js
+class _HomeScreenState extends State<HomeScreen> {
+  String selected = 'Home';
 
-import React, { useState } from "react";
+  final pages = {
+    'Home': 'Welcome to the Home Page!',
+    'About': 'This is the About Page.',
+    'Services': 'Here are our Services.',
+    'Contact': 'Contact us at example@flutter.dev',
+    'Feedback': 'Give us your Feedback!'
+  };
 
-export default function Welcome({ name }) {
-  const [count, setCount] = useState(0);
-  return (
-    <div style={{ border: "1px solid #ccc", padding: 10, margin: "10px 0", borderRadius: 8 }}>
-      <h3>Hello, {name}</h3>
-      <p>You have greeted {count} times.</p>
-      <button onClick={() => setCount(count + 1)}>Say Hello</button>
-    </div>
-  );
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final small = w < 600;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green[800],
+        title: const Text("Design",
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+        actions: small
+            ? [
+                PopupMenuButton(
+                  icon: const Icon(Icons.menu, color: Colors.white),
+                  onSelected: (v) => setState(() => selected = v),
+                  itemBuilder: (_) => pages.keys
+                      .map((e) => PopupMenuItem(
+                            value: e,
+                            child: Text(
+                              e.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: selected == e
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: selected == e
+                                      ? Colors.green[900]
+                                      : Colors.red[800]),
+                            ),
+                          ))
+                      .toList(),
+                )
+              ]
+            : pages.keys
+                .map((e) => TextButton(
+                      onPressed: () => setState(() => selected = e),
+                      child: Text(
+                        e.toUpperCase(),
+                        style: TextStyle(
+                            color: selected == e
+                                ? Colors.white
+                                : Colors.white70,
+                            fontWeight: selected == e
+                                ? FontWeight.bold
+                                : FontWeight.normal),
+                      ),
+                    ))
+                .toList(),
+      ),
+
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/bg.jpg"), fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: Container(
+            width: small ? double.infinity : w * 0.7,
+            padding: const EdgeInsets.all(20),
+            color: Colors.white70,
+            child: Text(pages[selected]!,
+                style: const TextStyle(fontSize: 24),
+                textAlign: TextAlign.center),
+          ),
+        ),
+      ),
+    );
+  }
 }
-
-index.js
-
-import React from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-import "./styles.css";
-
-createRoot(document.getElementById("root")).render(<App />);
-
-index.html
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>React Props & State</title>
-</head>
-<body>
-  <div id="root"></div>
-</body>
-</html>
-
-
----
-
-✅ Changes made:
-
-Removed unnecessary comments and blank lines.
-
-Combined simple imports and default exports.
-
-Removed <StrictMode> (optional for small examples).
-
-Shortened inline styles slightly while keeping the same appearance.
-
-
-If you want, I can make it even more compact so the whole app fits in just two files for super quick testing.
-
-Do you want me to do that?
